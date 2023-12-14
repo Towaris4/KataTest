@@ -12,12 +12,12 @@ public class Main {
         String mathExample = in.nextLine();
         System.out.print(mathExample);
         }
-    public static boolean checkValid(String mathExample) {
-        indexOf()
-        lastIndexOf()
+   // public static boolean checkValid(String mathExample) {
+        //indexOf()
+       // lastIndexOf()
     }
-    public static String detectSeparator() {
-        indexOf();
-        lastIndexOf();
-    }
-    }
+   // public static String detectSeparator() {
+        //indexOf();
+        //lastIndexOf();
+   // }
+    //}
