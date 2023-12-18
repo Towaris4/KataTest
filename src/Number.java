@@ -1,7 +1,8 @@
 public class Number {
     int value = 0;
     boolean isRim;
-    public void getType(String Str_num) {
+
+    public void getValue(String Str_num) throws MyException3 {
         switch (Str_num.toLowerCase()) {
             case "i":
                 value = 1;
@@ -88,7 +89,32 @@ public class Number {
                 isRim = false;
                 break;
             default:
-                System.out.println("Ошибка, таких чисел нет");
+                throw new MyException3("Problem1");
         }
     }
-}
+        public static String convertValue(int num) {
+            return switch (num) {
+                case 1 -> "I";
+                case 2 -> "II";
+                case 3 -> "III";
+                case 4 -> "IV";
+                case 5 -> "V";
+                case 6 -> "VI";
+                case 7 -> "VII";
+                case 8 -> "VIII";
+                case 9 -> "IX";
+                case 10 -> "X";
+                case 11 -> "XI";
+                case 12 -> "XII";
+                case 13 -> "XIII";
+                case 14 -> "XIV";
+                case 15 -> "XV";
+                case 16 -> "XVI";
+                case 17 -> "XVII";
+                case 18 -> "XVIII";
+                case 19 -> "XIX";
+                case 20 -> "XX";
+                default -> null;
+            };
+        }
+    }

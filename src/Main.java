@@ -8,18 +8,23 @@ public class Main {
         Scanner in = new Scanner(System.in);
         String mathExample = in.nextLine();
         mathExample = mathExample.replaceAll("\\s", "");
-        setNumber(mathExample);
-        Number number_A = new Number();
-        number_A.getType(str_number_A);
-        Number number_B = new Number();
-        number_B.getType(str_number_B);
-        System.out.println(doMath(number_A, number_B, getSeparator(mathExample)));
+        try {
+            checkValid(mathExample);
+            setNumber(mathExample);
+            Number number_A = new Number();
+            number_A.getValue(str_number_A);
+            Number number_B = new Number();
+            number_B.getValue(str_number_B);
+            System.out.println(doMath(number_A, number_B, getSeparator(mathExample)));
+        } catch (MyException | MyException2 | MyException3 | MyException4 e) {
+            System.out.println(e.getMessage());
+        }
 
     }
 
-    public static boolean checkValid(String mathExample) {
+    public static void checkValid(String mathExample) throws MyException4 {
         String[] mathSimbol = {"-", "+", "/", "*"};
-        Boolean Duble = false;
+        Boolean isDuble = false;
         int yest = 0;
         Boolean valid = false;
         for (int i = 0; i < 4; i++) {
@@ -27,25 +32,25 @@ public class Main {
                 yest++;
             }
                 if (mathExample.indexOf(mathSimbol[i]) != mathExample.lastIndexOf(mathSimbol[i])) {
-                    Duble = true;
+                    isDuble = true;
                 }
         }
-        if (yest==1 && !Duble) {
+        if (yest==1 && !isDuble) {
             valid = true;
         }
-        return valid;
+        if (!valid) {
+            throw new MyException4 ("Problem");
+        }
     }
 
     public static String getSeparator(String mathExample) {
         String[] mathSimbol = {"-", "+", "/", "*"};
         String separator = null;
-        if (checkValid(mathExample)) {
             for (int i = 0; i < 4; i++) {
                 if (mathExample.contains(mathSimbol[i])) {
                     separator = mathSimbol[i];
                 }
             }
-        }
         return separator;
     }
 
@@ -63,7 +68,7 @@ public class Main {
     }
     static String str_number_A;
     static String str_number_B;
-    public static int doMath (Number A, Number B,String separator) {
+    public static String doMath (Number A, Number B,String separator) throws MyException, MyException2 {
         int decision = 0;
         if (A.isRim==B.isRim) {
              switch (separator) {
@@ -81,11 +86,16 @@ public class Main {
                      break;
             };
              if ((A.isRim)&&(decision<=0)) {
-                 System.out.println("Римская отрицательное");
+                 throw new MyException ("Problem");
              }
         } else {
-            System.out.println("Неверные типы");
+            throw new MyException2 ("Problem");
         }
-        return decision;
+        if (A.isRim) {
+            return Number.convertValue(decision);
+        } else {
+            return Integer.toString(decision);
         }
     }
+
+}
