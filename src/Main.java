@@ -9,7 +9,12 @@ public class Main {
         String mathExample = in.nextLine();
         mathExample = mathExample.replaceAll("\\s", "");
         setNumber(mathExample);
-        System.out.println(doMath(str_number_A, str_number_B, detectSeparator(mathExample)));
+        Number number_A = new Number();
+        number_A.getType(str_number_A);
+        Number number_B = new Number();
+        number_B.getType(str_number_B);
+        System.out.println(doMath(number_A, number_B, getSeparator(mathExample)));
+
     }
 
     public static boolean checkValid(String mathExample) {
@@ -31,7 +36,7 @@ public class Main {
         return valid;
     }
 
-    public static String detectSeparator(String mathExample) {
+    public static String getSeparator(String mathExample) {
         String[] mathSimbol = {"-", "+", "/", "*"};
         String separator = null;
         if (checkValid(mathExample)) {
@@ -46,11 +51,11 @@ public class Main {
 
     public static void setNumber(String mathExample) {
         int start = 0;
-        int end = mathExample.indexOf(detectSeparator(mathExample));
+        int end = mathExample.indexOf(getSeparator(mathExample));
         char[] dst=new char[end - start];
         mathExample.getChars(start, end, dst, 0);
         str_number_A = new String(dst);
-        start = mathExample.indexOf(detectSeparator(mathExample))+1;
+        start = mathExample.indexOf(getSeparator(mathExample))+1;
         end = mathExample.length();
         dst = new char[end - start];
         mathExample.getChars(start, end, dst, 0);
@@ -58,15 +63,29 @@ public class Main {
     }
     static String str_number_A;
     static String str_number_B;
-    public static int doMath (String oneNumber, String twoNumber,String separator) {
-        int A = Integer.parseInt (oneNumber);
-        int B = Integer.parseInt (twoNumber);
-        return switch (separator) {
-            case ("-") -> A - B;
-            case ("+") -> A + B;
-            case ("*") -> A * B;
-            case ("/") -> A / B;
-            default -> 0;
-        };
+    public static int doMath (Number A, Number B,String separator) {
+        int decision = 0;
+        if (A.isRim==B.isRim) {
+             switch (separator) {
+                 case ("-"):
+                     decision = A.value - B.value;
+                     break;
+                 case ("+"):
+                     decision=A.value + B.value;
+                     break;
+                 case ("*"):
+                     decision=A.value * B.value;
+                     break;
+                 case ("/"):
+                     decision=A.value / B.value;
+                     break;
+            };
+             if ((A.isRim)&&(decision<=0)) {
+                 System.out.println("Римская отрицательное");
+             }
+        } else {
+            System.out.println("Неверные типы");
+        }
+        return decision;
+        }
     }
-  }
