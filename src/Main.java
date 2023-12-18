@@ -23,32 +23,32 @@ public class Main {
     }
 
     public static void checkValid(String mathExample) throws MyException4 {
-        String[] mathSimbol = {"-", "+", "/", "*"};
-        Boolean isDuble = false;
+        String[] mathSymbol = {"-", "+", "/", "*"};
+        boolean isDouble = false;
         int yest = 0;
-        Boolean valid = false;
+        boolean isValid = false;
         for (int i = 0; i < 4; i++) {
-            if (mathExample.contains(mathSimbol[i])) {
+            if (mathExample.contains(mathSymbol[i])) {
                 yest++;
             }
-                if (mathExample.indexOf(mathSimbol[i]) != mathExample.lastIndexOf(mathSimbol[i])) {
-                    isDuble = true;
+                if (mathExample.indexOf(mathSymbol[i]) != mathExample.lastIndexOf(mathSymbol[i])) {
+                    isDouble = true;
                 }
         }
-        if (yest==1 && !isDuble) {
-            valid = true;
+        if (yest==1 && !isDouble) {
+            isValid = true;
         }
-        if (!valid) {
+        if (!isValid) {
             throw new MyException4 ("Problem");
         }
     }
 
     public static String getSeparator(String mathExample) {
-        String[] mathSimbol = {"-", "+", "/", "*"};
+        String[] mathSymbol = {"-", "+", "/", "*"};
         String separator = null;
             for (int i = 0; i < 4; i++) {
-                if (mathExample.contains(mathSimbol[i])) {
-                    separator = mathSimbol[i];
+                if (mathExample.contains(mathSymbol[i])) {
+                    separator = mathSymbol[i];
                 }
             }
         return separator;
@@ -71,20 +71,14 @@ public class Main {
     public static String doMath (Number A, Number B,String separator) throws MyException, MyException2 {
         int decision = 0;
         if (A.isRim==B.isRim) {
-             switch (separator) {
-                 case ("-"):
-                     decision = A.value - B.value;
-                     break;
-                 case ("+"):
-                     decision=A.value + B.value;
-                     break;
-                 case ("*"):
-                     decision=A.value * B.value;
-                     break;
-                 case ("/"):
-                     decision=A.value / B.value;
-                     break;
+            decision = switch (separator) {
+                case ("-") -> A.value - B.value;
+                case ("+") -> A.value + B.value;
+                case ("*") -> A.value * B.value;
+                case ("/") -> A.value / B.value;
+                default -> decision;
             };
+
              if ((A.isRim)&&(decision<=0)) {
                  throw new MyException ("Problem");
              }
