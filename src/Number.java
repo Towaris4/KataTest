@@ -93,28 +93,60 @@ public class Number {
         }
     }
         public static String convertValue(int num) {
-            return switch (num) {
-                case 1 -> "I";
-                case 2 -> "II";
-                case 3 -> "III";
-                case 4 -> "IV";
-                case 5 -> "V";
-                case 6 -> "VI";
-                case 7 -> "VII";
-                case 8 -> "VIII";
-                case 9 -> "IX";
-                case 10 -> "X";
-                case 11 -> "XI";
-                case 12 -> "XII";
-                case 13 -> "XIII";
-                case 14 -> "XIV";
-                case 15 -> "XV";
-                case 16 -> "XVI";
-                case 17 -> "XVII";
-                case 18 -> "XVIII";
-                case 19 -> "XIX";
-                case 20 -> "XX";
-                default -> null;
-            };
+            if (num < 1 || num > 3999)
+                return "Invalid Roman Number Value";
+            StringBuilder s = new StringBuilder();
+            while (num >= 1000) {
+                s.append("M");
+                num -= 1000;        }
+            while (num >= 900) {
+                s.append("CM");
+                num -= 900;
+            }
+            while (num >= 500) {
+                s.append("D");
+                num -= 500;
+            }
+            while (num >= 400) {
+                s.append("CD");
+                num -= 400;
+            }
+            while (num >= 100) {
+                s.append("C");
+                num -= 100;
+            }
+            while (num >= 90) {
+                s.append("XC");
+                num -= 90;
+            }
+            while (num >= 50) {
+                s.append("L");
+                num -= 50;
+            }
+            while (num >= 40) {
+                s.append("XL");
+                num -= 40;
+            }
+            while (num >= 10) {
+                s.append("X");
+                num -= 10;
+            }
+            while (num >= 9) {
+                s.append("IX");
+                num -= 9;
+            }
+            while (num >= 5) {
+                s.append("V");
+                num -= 5;
+            }
+            while (num >= 4) {
+                s.append("IV");
+                num -= 4;
+            }
+            while (num >= 1) {
+                s.append("I");
+                num -= 1;
+            }
+            return s.toString();
+            }
         }
-    }
